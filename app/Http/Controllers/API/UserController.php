@@ -20,7 +20,7 @@ class UserController extends Controller
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone' => ['nullable', 'string', 'max:255'],
-                'password' => ['required', 'string', new Password] // pakai validasi passowrd bawaan laravel
+                'password' => ['required', 'string', new Password], // pakai validasi passowrd bawaan laravel
             ]);
 
             User::create([
@@ -28,7 +28,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
             ]);
 
             $user = User::where('email', $request->email)->first();
@@ -38,13 +38,13 @@ class UserController extends Controller
             return ResponseFormatter::success([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-                'user' => $user
+                'user' => $user,
             ], 'User Registered');
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'messenge' => 'Somenting went Wrong',
-                'error' => $error
-            ], 'Auntentication Failed, 500');
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 'Authentication Failed', 500);
         }
     }
 }
