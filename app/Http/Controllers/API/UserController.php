@@ -57,10 +57,10 @@ class UserController extends Controller
                 'password' => 'required',
             ]);
 
-            $credentials = request('email', 'password');
+            $credentials = request(['email', 'password']);
             if (!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
-                    'messenge' => 'Unauthorized',
+                    'message' => 'Unauthorized',
                 ], 'Authentucation Failed', 500);
             }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
             ], 'Authenticated');
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'messenge' => 'Unauthorized',
+                'message' => 'Unauthorized',
                 'error' => $error,
             ], 'Authentication Failed', 500);
         }
