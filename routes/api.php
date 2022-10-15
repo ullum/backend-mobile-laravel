@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\ProductCategoryController;
 use App\Http\Controllers\API\ProductController;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::get('nama-routing', [nama-controler::class, 'nama-function']);
 Route::get('products', [ProductController::class, 'all']);
+Route::get('categories', [ProductCategoryController::class, 'all']);
