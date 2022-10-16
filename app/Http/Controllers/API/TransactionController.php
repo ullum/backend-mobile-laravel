@@ -62,21 +62,18 @@ class TransactionController extends Controller
             'address' => $request->address,
             'total_price' => $request->total_price,
             'shipping_price' => $request->shipping_price,
-            'status' => $request->status,
+            'status' => $request->status
         ]);
-
+        
         foreach ($request->items as $product) {
             TransactionItem::create([
                 'users_id' => Auth::user()->id,
                 'products_id' => $product['id'],
-                'transaction_id' => $transaction->id,
-                'quantity' => $product['quantity'],
+                'transactions_id' => $transaction->id,
+                'quantity' => $product['quantity']
             ]);
         }
 
-        return ResponseFormatter::success(
-            $transaction->load('items.product'),
-            'Transaksi berhasil'
-        );
+        return ResponseFormatter::success($transaction->load('items.product'), 'Transaksi berhasil');
     }
 }
