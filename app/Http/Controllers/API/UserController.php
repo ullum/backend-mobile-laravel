@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use function GuzzleHttp\Promise\all;
+
 class UserController extends Controller
 {
     public function register(Request $request)
@@ -84,11 +86,27 @@ class UserController extends Controller
         }
     }
 
+    // fetch/ambil data user
     public function fetch(Request $request)
     {
         return ResponseFormatter::success(
             $request->user(),
             'Data Profile user berhasil diambil'
+        );
+    }
+
+    // update profile
+    public function updateProfile(Request $request)
+    {
+        //  balum dikasih validate
+        $data = $request->all();
+
+        $user = Auth::user(); // mengambil user yang sedang login dengan fungsi Auth::user()
+        $user->update($data);
+
+        return ResponseFormatter::success(
+            $user,
+            'Profile updated'
         );
     }
 }
