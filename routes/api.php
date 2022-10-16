@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 // JANGAN LUPA CEK METHOD
 // Route::get('nama-routing', [nama-controler::class, 'nama-function']);
@@ -29,3 +27,7 @@ Route::get('categories', [ProductCategoryController::class, 'all']);
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('user', [UserController::class, 'fetch']);
+});
